@@ -7,14 +7,25 @@ namespace pxgamer\CryptoCheck;
  */
 class Wallet
 {
+    /**
+     * Wallet config path
+     */
     const WALLET_CONFIG = __DIR__.'/../config/wallets.json';
+
+    // Wallet types
+    const ETHEREUM = 'ethereum';
+    const BITCOIN = 'bitcoin';
+
+    /**
+     * Available wallet data
+     */
     const WALLET_AVAILABLE = [
-        'ethereum' => [
+        Wallet::ETHEREUM => [
             'address_format' => '/^0x[\w]{40}$/',
             'symbol' => 'ETH',
             'divider' => 1000000000000000000,
         ],
-        'bitcoin' => [
+        Wallet::BITCOIN => [
             'address_format' => '/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/',
             'symbol' => 'BTC',
             'divider' => 100000000,

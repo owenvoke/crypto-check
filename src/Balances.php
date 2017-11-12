@@ -65,10 +65,10 @@ class Balances
 
         foreach ($addressKeys as $address) {
             switch ($type) {
-                case 'ethereum':
+                case Wallet::ETHEREUM:
                     $apiContext = ApiContext::create(
                         'main',
-                        'eth',
+                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::ETHEREUM]['symbol']),
                         'v1',
                         new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
                         $config
@@ -76,12 +76,15 @@ class Balances
 
                     $addressClient = new AddressClient($apiContext);
                     $data = $addressClient->get($address);
-                    $balances['ethereum'][$address] = self::convertToSimpleString($data->getBalance(), 'ethereum');
+                    $balances[Wallet::ETHEREUM][$address] = self::convertToSimpleString(
+                        $data->getBalance(),
+                        Wallet::ETHEREUM
+                    );
                     break;
-                case 'bitcoin':
+                case Wallet::BITCOIN:
                     $apiContext = ApiContext::create(
                         'main',
-                        'btc',
+                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::BITCOIN]['symbol']),
                         'v1',
                         new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
                         $config
@@ -89,7 +92,10 @@ class Balances
 
                     $addressClient = new AddressClient($apiContext);
                     $data = $addressClient->get($address);
-                    $balances['bitcoin'][$address] = self::convertToSimpleString($data->getBalance(), 'bitcoin');
+                    $balances[Wallet::BITCOIN][$address] = self::convertToSimpleString(
+                        $data->getBalance(),
+                        Wallet::BITCOIN
+                    );
                     break;
                 default:
             }
