@@ -29,6 +29,20 @@ class Wallet
     }
 
     /**
+     * @param string $address
+     * @param string $type
+     * @param null   $customName
+     * @return bool
+     */
+    public static function add($address, $type, $customName = null)
+    {
+        $config = Wallet::read();
+        $config[$type][$address] = $customName;
+
+        return Wallet::write($config);
+    }
+
+    /**
      * @return array
      */
     public static function read()
