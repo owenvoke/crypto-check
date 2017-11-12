@@ -25,7 +25,7 @@ class Balances
 
         if ($address && $type) {
             if (key_exists($address, $config[$type])) {
-                return Balances::getAddressBalances($type, [$address]);
+                return Balances::getAddressBalances($type, [$address => null]);
             }
 
             throw new WalletNotFoundException();
