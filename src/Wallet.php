@@ -35,6 +35,7 @@ class Wallet
     /**
      * @param string $address
      * @param string $type
+     * @return bool
      * @throws \Exception
      */
     public static function validate(string $address, string $type)
@@ -46,6 +47,8 @@ class Wallet
         if (!preg_match(self::WALLET_AVAILABLE[$type]['address_format'], $address)) {
             throw new Exceptions\InvalidAddressFormatException();
         }
+
+        return true;
     }
 
     /**
