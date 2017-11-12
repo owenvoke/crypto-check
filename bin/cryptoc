@@ -8,4 +8,5 @@ if (file_exists(__DIR__ . '/../../../autoload.php')) {
 $app = new Symfony\Component\Console\Application('Crypto Check', '1.0.0');
 $app->add(new pxgamer\CryptoCheck\Commands\WalletAdd());
 $app->add(new pxgamer\CryptoCheck\Commands\WalletList());
+$app->add(new pxgamer\CryptoCheck\Commands\WalletRemove());
 $app->run();
