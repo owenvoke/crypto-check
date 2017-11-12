@@ -67,7 +67,9 @@ class Balances
             switch ($type) {
                 case 'ethereum':
                     $apiContext = ApiContext::create(
-                        'main', 'eth', 'v1',
+                        'main',
+                        'eth',
+                        'v1',
                         new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
                         $config
                     );
@@ -78,7 +80,9 @@ class Balances
                     break;
                 case 'bitcoin':
                     $apiContext = ApiContext::create(
-                        'main', 'btc', 'v1',
+                        'main',
+                        'btc',
+                        'v1',
                         new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
                         $config
                     );
