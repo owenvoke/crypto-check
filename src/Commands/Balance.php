@@ -45,7 +45,11 @@ class Balance extends Command
 
         $balances = Balances::fetch($type, $address);
 
-        $this->output->writeln('<comment> '.$type.'</comment>');
-        $this->output->table(['Address', 'Balance'], $balances);
+        foreach ($balances as $balanceType => $balance) {
+            $this->output->writeln('<comment> '.$balanceType.'</comment>');
+            foreach ($balance as $addressName => $addressBalance) {
+                $this->output->writeln(' '.$addressName.' ('.$addressBalance.')');
+            }
+        }
     }
 }
