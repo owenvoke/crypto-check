@@ -37,9 +37,28 @@ class Wallet
     public static function add($address, $type, $customName = null)
     {
         $config = Wallet::read();
-        $config[$type][$address] = $customName;
+
+        $lowerType = strtolower($type);
+        $lowerAddress = strtolower($address);
+
+        $config[$lowerType][$lowerAddress] = $customName;
 
         return Wallet::write($config);
+    }
+
+    /**
+     * @param string $type
+     * @return array
+     */
+    public static function list($type)
+    {
+        $config = Wallet::read();
+
+        if ($type) {
+            return [$type => $config[$type]] ?? [];
+        }
+
+        return $config;
     }
 
     /**
@@ -47,6 +66,10 @@ class Wallet
      */
     public static function read()
     {
+        if (!file_exists(self::WALLET_CONFIG)) {
+            file_put_contents(self::WALLET_CONFIG, '{}');
+        }
+
         $data = file_get_contents(self::WALLET_CONFIG);
         return json_decode($data, true);
     }
