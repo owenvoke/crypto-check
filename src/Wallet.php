@@ -10,8 +10,12 @@ class Wallet
     const WALLET_CONFIG = __DIR__.'/../config/wallets.json';
     const WALLET_AVAILABLE = [
         'ethereum' => [
-            'address_format' => '/0x[\w]{40}/',
+            'address_format' => '/^0x[\w]{40}$/',
             'symbol' => 'ETH'
+        ],
+        'bitcoin' => [
+            'address_format' => '/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/',
+            'symbol' => 'BTG'
         ],
     ];
 
