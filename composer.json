@@ -6,7 +6,7 @@
     "require": {
         "php": "^7.1",
         "symfony/console": "^3.3",
-        "blockchainrndhub/etherscan": "^1.0"
+        "blockcypher/php-client": "^1.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4",
