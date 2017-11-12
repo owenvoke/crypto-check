@@ -47,6 +47,28 @@ class Wallet
     }
 
     /**
+     * @param string $address
+     * @param string $type
+     * @return bool
+     * @throws \Exception
+     */
+    public static function remove($address, $type)
+    {
+        $config = Wallet::read();
+
+        $lowerType = strtolower($type);
+        $lowerAddress = strtolower($address);
+
+        if (key_exists($lowerAddress, $config[$lowerType])) {
+            unset($config[$lowerType][$lowerAddress]);
+
+            return Wallet::write($config);
+        }
+
+        throw new Exceptions\WalletNotFoundException();
+    }
+
+    /**
      * @param string $type
      * @return array
      */
