@@ -8,6 +8,25 @@ namespace pxgamer\CryptoCheck;
 class Wallet
 {
     const WALLET_CONFIG = __DIR__.'/../config/wallets.json';
+    const WALLET_AVAILABLE = [
+        'ethereum' => '/0x[\w]{40}/',
+    ];
+
+    /**
+     * @param string $address
+     * @param string $type
+     * @throws \Exception
+     */
+    public static function validate(string $address, string $type)
+    {
+        if (!key_exists($type, self::WALLET_AVAILABLE)) {
+            throw new Exceptions\InvalidWalletTypeException();
+        }
+
+        if (!preg_match(self::WALLET_AVAILABLE[$type], $address)) {
+            throw new Exceptions\InvalidAddressFormatException();
+        }
+    }
 
     /**
      * @return array
