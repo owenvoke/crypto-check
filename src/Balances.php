@@ -2,10 +2,9 @@
 
 namespace pxgamer\CryptoCheck;
 
-use EtherScan\EtherScan;
-use EtherScan\Modules\Account;
-use EtherScan\Resources\ApiConnector;
-use pxgamer\CryptoCheck\Exceptions\InvalidWalletTypeException;
+use BlockCypher\Auth\SimpleTokenCredential;
+use BlockCypher\Client\AddressClient;
+use BlockCypher\Rest\ApiContext;
 use pxgamer\CryptoCheck\Exceptions\WalletNotFoundException;
 
 /**
@@ -37,32 +36,72 @@ class Balances
             }
         }
 
-        throw new InvalidWalletTypeException();
+        $data = [];
+
+        foreach ($config as $walletType => $addresses) {
+            $data = array_merge(
+                $data,
+                Balances::getAddressBalances($walletType, $addresses)
+            );
+        }
+
+        return $data;
     }
 
     /**
      * @param string $type
      * @param array  $addresses
      * @return array
+     * @throws \Exception
      */
     public static function getAddressBalances($type, $addresses)
     {
         $balances = [];
-        $addressesSwitched = array_keys($addresses);
+        $addressKeys = array_keys($addresses);
 
-        foreach (array_chunk($addressesSwitched, 20) as $addressChunk) {
+        $config = [
+            'log.LogEnabled' => false,
+        ];
+
+        foreach ($addressKeys as $address) {
             switch ($type) {
                 case 'ethereum':
-                    $apiConnector = new ApiConnector(getenv('ETHERSCAN_API_KEY'));
-                    $account = new Account($apiConnector, EtherScan::PREFIX_API);
+                    $apiContext = ApiContext::create(
+                        'main', 'eth', 'v1',
+                        new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
+                        $config
+                    );
 
-                    $result = json_decode($account->getBalances($addressChunk), true);
-                    $balances = array_merge($balances, $result['result']);
+                    $addressClient = new AddressClient($apiContext);
+                    $data = $addressClient->get($address);
+                    $balances['ethereum'][$address] = self::convertToSimpleString($data->getBalance(), 'ethereum');
+                    break;
+                case 'bitcoin':
+                    $apiContext = ApiContext::create(
+                        'main', 'btc', 'v1',
+                        new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
+                        $config
+                    );
+
+                    $addressClient = new AddressClient($apiContext);
+                    $data = $addressClient->get($address);
+                    $balances['bitcoin'][$address] = self::convertToSimpleString($data->getBalance(), 'bitcoin');
                     break;
                 default:
             }
         }
 
         return $balances;
+    }
+
+    /**
+     * @param int    $balanceToken
+     * @param string $type
+     * @return string
+     */
+    public static function convertToSimpleString($balanceToken, $type = 'ethereum')
+    {
+        return ($balanceToken / Wallet::WALLET_AVAILABLE[$type]['divider']).' '.
+            Wallet::WALLET_AVAILABLE[$type]['symbol'];
     }
 }
