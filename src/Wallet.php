@@ -9,7 +9,10 @@ class Wallet
 {
     const WALLET_CONFIG = __DIR__.'/../config/wallets.json';
     const WALLET_AVAILABLE = [
-        'ethereum' => '/0x[\w]{40}/',
+        'ethereum' => [
+            'address_format' => '/0x[\w]{40}/',
+            'symbol' => 'ETH'
+        ],
     ];
 
     /**
@@ -23,7 +26,7 @@ class Wallet
             throw new Exceptions\InvalidWalletTypeException();
         }
 
-        if (!preg_match(self::WALLET_AVAILABLE[$type], $address)) {
+        if (!preg_match(self::WALLET_AVAILABLE[$type]['address_format'], $address)) {
             throw new Exceptions\InvalidAddressFormatException();
         }
     }
