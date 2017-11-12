@@ -11,11 +11,13 @@ class Wallet
     const WALLET_AVAILABLE = [
         'ethereum' => [
             'address_format' => '/^0x[\w]{40}$/',
-            'symbol' => 'ETH'
+            'symbol' => 'ETH',
+            'divider' => 1000000000000000000,
         ],
         'bitcoin' => [
             'address_format' => '/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/',
-            'symbol' => 'BTG'
+            'symbol' => 'BTC',
+            'divider' => 100000000,
         ],
     ];
 
