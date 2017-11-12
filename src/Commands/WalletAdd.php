@@ -2,7 +2,6 @@
 
 namespace pxgamer\CryptoCheck\Commands;
 
-use pxgamer\CryptoCheck\Config;
 use pxgamer\CryptoCheck\Wallet;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
