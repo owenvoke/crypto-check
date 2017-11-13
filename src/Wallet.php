@@ -67,10 +67,7 @@ class Wallet
     {
         $config = Wallet::read();
 
-        $lowerType = strtolower($type);
-        $lowerAddress = strtolower($address);
-
-        $config[$lowerType][$lowerAddress] = $customName;
+        $config[$type][$address] = $customName;
 
         return Wallet::write($config);
     }
@@ -85,11 +82,8 @@ class Wallet
     {
         $config = Wallet::read();
 
-        $lowerType = strtolower($type);
-        $lowerAddress = strtolower($address);
-
-        if (key_exists($lowerAddress, $config[$lowerType])) {
-            unset($config[$lowerType][$lowerAddress]);
+        if (key_exists($address, $config[$type])) {
+            unset($config[$type][$address]);
 
             return Wallet::write($config);
         }
