@@ -101,7 +101,7 @@ class Wallet
      * @param string $type
      * @return array
      */
-    public static function list($type)
+    public static function list($type = null)
     {
         $config = Wallet::read();
 
