@@ -62,6 +62,7 @@ class Balances
         $config = [
             'log.LogEnabled' => false,
         ];
+        $simpleTokenCredential = new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY'));
 
         foreach ($addressKeys as $address) {
             switch ($type) {
@@ -70,7 +71,7 @@ class Balances
                         'main',
                         strtolower(Wallet::WALLET_AVAILABLE[Wallet::ETHEREUM]['symbol']),
                         'v1',
-                        new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
+                        $simpleTokenCredential,
                         $config
                     );
 
@@ -86,7 +87,7 @@ class Balances
                         'main',
                         strtolower(Wallet::WALLET_AVAILABLE[Wallet::BITCOIN]['symbol']),
                         'v1',
-                        new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY')),
+                        $simpleTokenCredential,
                         $config
                     );
 
@@ -95,6 +96,22 @@ class Balances
                     $balances[Wallet::BITCOIN][$address] = self::convertToSimpleString(
                         $data->getBalance(),
                         Wallet::BITCOIN
+                    );
+                    break;
+                case Wallet::DASH:
+                    $apiContext = ApiContext::create(
+                        'main',
+                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::DASH]['symbol']),
+                        'v1',
+                        $simpleTokenCredential,
+                        $config
+                    );
+
+                    $addressClient = new AddressClient($apiContext);
+                    $data = $addressClient->get($address);
+                    $balances[Wallet::DASH][$address] = self::convertToSimpleString(
+                        $data->getBalance(),
+                        Wallet::DASH
                     );
                     break;
                 default:
