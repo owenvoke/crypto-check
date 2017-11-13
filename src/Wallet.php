@@ -132,6 +132,6 @@ class Wallet
     public static function write(array $data)
     {
         $json = json_encode($data);
-        return file_put_contents(self::WALLET_CONFIG, $json);
+        return (bool)file_put_contents(self::WALLET_CONFIG, $json);
     }
 }
