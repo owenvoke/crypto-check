@@ -4,6 +4,11 @@ All notable changes to `crypto-check` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## v1.0.3 - 2017-11-13
+
+### Fixed
+- Corrected RegEx pattern for Litecoin wallet addresses
+
 ## v1.0.2 - 2017-11-13
 
 ### Added
