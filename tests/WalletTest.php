@@ -21,13 +21,33 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the validate() method throws an exception on an invalid address.
+     * Test that the validate() method throws an exception on an invalid Bitcoin address.
      * @throws \Exception
      */
     public function testThrowExceptionOnInvalidBitcoinAddress()
     {
         $this->expectException(Exceptions\InvalidAddressFormatException::class);
         Wallet::validate('3MZmTtzaxPKb2a7V5fffsuE6dFr21rqdxKoE', Wallet::BITCOIN);
+    }
+
+    /**
+     * Test that the validate() method throws an exception on an invalid Ethereum address.
+     * @throws \Exception
+     */
+    public function testThrowExceptionOnInvalidEthereumAddress()
+    {
+        $this->expectException(Exceptions\InvalidAddressFormatException::class);
+        Wallet::validate('3MZmTtzaxPKb2a7V5fffsuE6dFr21rqdxKoE', Wallet::ETHEREUM);
+    }
+
+    /**
+     * Test that the validate() method throws an exception on an invalid Dash address.
+     * @throws \Exception
+     */
+    public function testThrowExceptionOnInvalidDashAddress()
+    {
+        $this->expectException(Exceptions\InvalidAddressFormatException::class);
+        Wallet::validate('3MZmTtzaxPKb2a7V5fffsuE6dFr21rqdxKoE', Wallet::DASH);
     }
 
     /**
