@@ -24,7 +24,7 @@ vendor/
 Via Composer
 
 ``` bash
-$ composer require pxgamer/crypto-check
+$ composer global require pxgamer/crypto-check
 ```
 
 ## Usage
