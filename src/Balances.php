@@ -128,10 +128,15 @@ class Balances
      * @param int    $balanceToken
      * @param string $type
      * @return string
+     * @throws \Exception
      */
     public static function convertToSimpleString($balanceToken, $type = 'ethereum')
     {
-        return ($balanceToken / Wallet::WALLET_AVAILABLE[$type]['divider']).' '.
-            Wallet::WALLET_AVAILABLE[$type]['symbol'];
+        if (isset(Wallet::WALLET_AVAILABLE[$type])) {
+            return ($balanceToken / Wallet::WALLET_AVAILABLE[$type]['divider']).' '.
+                   Wallet::WALLET_AVAILABLE[$type]['symbol'];
+        }
+
+        throw new InvalidWalletTypeException();
     }
 }
