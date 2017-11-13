@@ -17,17 +17,8 @@ class WalletTest extends TestCase
      */
     public function testCreatesFileOnRead()
     {
-        $tmpConfigDir = __DIR__.'/../config/config-backup.json';
-        if (file_exists(Wallet::WALLET_CONFIG)) {
-            rename(Wallet::WALLET_CONFIG, $tmpConfigDir);
-        }
-
         Wallet::read();
         $this->assertFileExists(Wallet::WALLET_CONFIG);
-
-        if (file_exists($tmpConfigDir)) {
-            rename($tmpConfigDir, Wallet::WALLET_CONFIG);
-        }
     }
 
     /**
