@@ -24,7 +24,7 @@ class Balances
         $config = Wallet::read();
 
         if ($address && $type) {
-            if (key_exists($address, $config[$type])) {
+            if (key_exists($type, $config) && key_exists($address, $config[$type])) {
                 return Balances::getAddressBalances($type, [$address => null]);
             }
 
