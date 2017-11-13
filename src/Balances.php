@@ -133,6 +133,22 @@ class Balances
                         Wallet::LITECOIN
                     );
                     break;
+                case Wallet::DOGECOIN:
+                    $apiContext = ApiContext::create(
+                        'main',
+                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::DOGECOIN]['symbol']),
+                        'v1',
+                        $simpleTokenCredential,
+                        $config
+                    );
+
+                    $addressClient = new AddressClient($apiContext);
+                    $data = $addressClient->get($address);
+                    $balances[Wallet::DOGECOIN][$address] = self::convertToSimpleString(
+                        $data->getBalance(),
+                        Wallet::DOGECOIN
+                    );
+                    break;
                 default:
             }
         }
