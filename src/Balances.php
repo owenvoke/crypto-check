@@ -117,6 +117,22 @@ class Balances
                         Wallet::DASH
                     );
                     break;
+                case Wallet::LITECOIN:
+                    $apiContext = ApiContext::create(
+                        'main',
+                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::LITECOIN]['symbol']),
+                        'v1',
+                        $simpleTokenCredential,
+                        $config
+                    );
+
+                    $addressClient = new AddressClient($apiContext);
+                    $data = $addressClient->get($address);
+                    $balances[Wallet::LITECOIN][$address] = self::convertToSimpleString(
+                        $data->getBalance(),
+                        Wallet::LITECOIN
+                    );
+                    break;
                 default:
             }
         }
