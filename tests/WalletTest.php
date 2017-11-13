@@ -13,18 +13,22 @@ class WalletTest extends TestCase
     const INVALID_ADDRESS = '3MZmTtzap1JLPKb2a7V5fffsuE6dFr21rqdxKoE';
 
     /**
-     * Test that the validate() method throws an exception on an invalid coin type.
+     * Test that the read() method creates a new wallets config file.
      * @throws \Exception
      */
     public function testCreatesFileOnRead()
     {
         $tmpConfigDir = __DIR__.'/../config/config-backup.json';
-        rename(Wallet::WALLET_CONFIG, $tmpConfigDir);
+        if (file_exists(Wallet::WALLET_CONFIG)) {
+            rename(Wallet::WALLET_CONFIG, $tmpConfigDir);
+        }
 
         Wallet::read();
         $this->assertFileExists(Wallet::WALLET_CONFIG);
 
-        rename($tmpConfigDir, Wallet::WALLET_CONFIG);
+        if (file_exists($tmpConfigDir)) {
+            rename($tmpConfigDir, Wallet::WALLET_CONFIG);
+        }
     }
 
     /**
@@ -133,7 +137,7 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the list() method returns an array
+     * Test that the list() method returns an array.
      * @throws \Exception
      */
     public function testCanListWalletAddresses()
