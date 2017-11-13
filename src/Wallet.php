@@ -39,7 +39,7 @@ class Wallet
             'divider' => 100000000,
         ],
         Wallet::LITECOIN => [
-            'address_format' => '/^L[1-9A-HJ-NP-Za-km-z]{33}$/',
+            'address_format' => '/^[1-9A-HJ-NP-Za-km-z]{34}$/',
             'symbol' => 'LTC',
             'divider' => 100000000,
         ],
