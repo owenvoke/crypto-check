@@ -68,88 +68,21 @@ class Balances
         $simpleTokenCredential = new SimpleTokenCredential(getenv('BLOCKCYPHER_KEY'));
 
         foreach ($addressKeys as $address) {
-            switch ($type) {
-                case Wallet::ETHEREUM:
-                    $apiContext = ApiContext::create(
-                        'main',
-                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::ETHEREUM]['symbol']),
-                        'v1',
-                        $simpleTokenCredential,
-                        $config
-                    );
+            if (key_exists($type, Wallet::WALLET_AVAILABLE)) {
+                $apiContext = ApiContext::create(
+                    'main',
+                    strtolower(Wallet::WALLET_AVAILABLE[$type]['symbol']),
+                    'v1',
+                    $simpleTokenCredential,
+                    $config
+                );
 
-                    $addressClient = new AddressClient($apiContext);
-                    $data = $addressClient->get($address);
-                    $balances[Wallet::ETHEREUM][$address] = self::convertToSimpleString(
-                        $data->getBalance(),
-                        Wallet::ETHEREUM
-                    );
-                    break;
-                case Wallet::BITCOIN:
-                    $apiContext = ApiContext::create(
-                        'main',
-                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::BITCOIN]['symbol']),
-                        'v1',
-                        $simpleTokenCredential,
-                        $config
-                    );
-
-                    $addressClient = new AddressClient($apiContext);
-                    $data = $addressClient->get($address);
-                    $balances[Wallet::BITCOIN][$address] = self::convertToSimpleString(
-                        $data->getBalance(),
-                        Wallet::BITCOIN
-                    );
-                    break;
-                case Wallet::DASH:
-                    $apiContext = ApiContext::create(
-                        'main',
-                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::DASH]['symbol']),
-                        'v1',
-                        $simpleTokenCredential,
-                        $config
-                    );
-
-                    $addressClient = new AddressClient($apiContext);
-                    $data = $addressClient->get($address);
-                    $balances[Wallet::DASH][$address] = self::convertToSimpleString(
-                        $data->getBalance(),
-                        Wallet::DASH
-                    );
-                    break;
-                case Wallet::LITECOIN:
-                    $apiContext = ApiContext::create(
-                        'main',
-                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::LITECOIN]['symbol']),
-                        'v1',
-                        $simpleTokenCredential,
-                        $config
-                    );
-
-                    $addressClient = new AddressClient($apiContext);
-                    $data = $addressClient->get($address);
-                    $balances[Wallet::LITECOIN][$address] = self::convertToSimpleString(
-                        $data->getBalance(),
-                        Wallet::LITECOIN
-                    );
-                    break;
-                case Wallet::DOGECOIN:
-                    $apiContext = ApiContext::create(
-                        'main',
-                        strtolower(Wallet::WALLET_AVAILABLE[Wallet::DOGECOIN]['symbol']),
-                        'v1',
-                        $simpleTokenCredential,
-                        $config
-                    );
-
-                    $addressClient = new AddressClient($apiContext);
-                    $data = $addressClient->get($address);
-                    $balances[Wallet::DOGECOIN][$address] = self::convertToSimpleString(
-                        $data->getBalance(),
-                        Wallet::DOGECOIN
-                    );
-                    break;
-                default:
+                $addressClient = new AddressClient($apiContext);
+                $data = $addressClient->get($address);
+                $balances[$type][$address] = self::convertToSimpleString(
+                    $data->getBalance(),
+                    $type
+                );
             }
         }
 
