@@ -72,6 +72,16 @@ class BalancesTest extends TestCase
     }
 
     /**
+     * Test that the fetch() method throws an exception on an invalid Dogecoin address.
+     * @throws \Exception
+     */
+    public function testThrowExceptionOnInvalidDogecoinAddress()
+    {
+        $this->expectException(Exceptions\WalletNotFoundException::class);
+        Balances::fetch(Wallet::DOGECOIN, WalletTest::INVALID_ADDRESS);
+    }
+
+    /**
      * Test that the convertToSimpleString() method returns a correctly formatted string.
      * @throws \Exception
      */
