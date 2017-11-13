@@ -16,6 +16,8 @@ class Wallet
     const ETHEREUM = 'ethereum';
     const BITCOIN = 'bitcoin';
     const DASH = 'dash';
+    const LITECOIN = 'litecoin';
+    const DOGECOIN = 'dogecoin';
 
     /**
      * Available wallet data
@@ -34,6 +36,16 @@ class Wallet
         Wallet::DASH => [
             'address_format' => '/^X[1-9A-HJ-NP-Za-km-z]{33}$/',
             'symbol' => 'DASH',
+            'divider' => 100000000,
+        ],
+        Wallet::LITECOIN => [
+            'address_format' => '/^L[1-9A-HJ-NP-Za-km-z]{33}$/',
+            'symbol' => 'LTC',
+            'divider' => 100000000,
+        ],
+        Wallet::DOGECOIN => [
+            'address_format' => '/^D[1-9A-HJ-NP-Za-km-z]{33}$/',
+            'symbol' => 'DOGE',
             'divider' => 100000000,
         ],
     ];
