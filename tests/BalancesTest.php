@@ -62,6 +62,16 @@ class BalancesTest extends TestCase
     }
 
     /**
+     * Test that the fetch() method throws an exception on an invalid Litecoin address.
+     * @throws \Exception
+     */
+    public function testThrowExceptionOnInvalidLitecoinAddress()
+    {
+        $this->expectException(Exceptions\WalletNotFoundException::class);
+        Balances::fetch(Wallet::LITECOIN, WalletTest::INVALID_ADDRESS);
+    }
+
+    /**
      * Test that the convertToSimpleString() method returns a correctly formatted string.
      * @throws \Exception
      */
