@@ -62,7 +62,7 @@ class BalancesTest extends TestCase
     }
 
     /**
-     * Test that the convertToSimpleString() method throws an exception on an invalid Dash address.
+     * Test that the convertToSimpleString() method returns a correctly formatted string.
      * @throws \Exception
      */
     public function testCanRetreiveSimpleStringForEthereum()
