@@ -5,6 +5,7 @@ namespace pxgamer\CryptoCheck;
 use BlockCypher\Auth\SimpleTokenCredential;
 use BlockCypher\Client\AddressClient;
 use BlockCypher\Rest\ApiContext;
+use pxgamer\CryptoCheck\Exceptions\InvalidWalletTypeException;
 use pxgamer\CryptoCheck\Exceptions\WalletNotFoundException;
 
 /**
@@ -13,12 +14,12 @@ use pxgamer\CryptoCheck\Exceptions\WalletNotFoundException;
 class Balances
 {
     /**
-     * @param $type
-     * @param $address
+     * @param string $type
+     * @param string $address
      * @return array
      * @throws \Exception
      */
-    public static function fetch($type, $address)
+    public static function fetch($type = null, $address = null)
     {
         $config = Wallet::read();
 
@@ -34,6 +35,8 @@ class Balances
             if (key_exists($type, $config)) {
                 return Balances::getAddressBalances($type, $config[$type]);
             }
+
+            throw new InvalidWalletTypeException();
         }
 
         $data = [];
