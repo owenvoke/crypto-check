@@ -3,7 +3,6 @@
 namespace pxgamer\CryptoCheck;
 
 use PHPUnit\Framework\TestCase;
-use pxgamer\CryptoCheck\Exceptions\WalletNotFoundException;
 
 class WalletTest extends TestCase
 {
@@ -132,7 +131,7 @@ class WalletTest extends TestCase
      */
     public function testCanRemoveNonExistentBitcoinAddress()
     {
-        $this->expectException(WalletNotFoundException::class);
+        $this->expectException(Exceptions\WalletNotFoundException::class);
         Wallet::remove(self::INVALID_ADDRESS, Wallet::BITCOIN);
     }
 
@@ -145,7 +144,7 @@ class WalletTest extends TestCase
         $result = Wallet::list(Wallet::BITCOIN);
         $this->assertInternalType('array', $result);
 
-        $result = Wallet::list(null);
+        $result = Wallet::list();
         $this->assertInternalType('array', $result);
     }
 }
