@@ -15,6 +15,7 @@ class Wallet
     // Wallet types
     const ETHEREUM = 'ethereum';
     const BITCOIN = 'bitcoin';
+    const DASH = 'dash';
 
     /**
      * Available wallet data
@@ -28,6 +29,11 @@ class Wallet
         Wallet::BITCOIN => [
             'address_format' => '/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/',
             'symbol' => 'BTC',
+            'divider' => 100000000,
+        ],
+        Wallet::DASH => [
+            'address_format' => '/^X[1-9A-HJ-NP-Za-km-z]{33}$/',
+            'symbol' => 'DASH',
             'divider' => 100000000,
         ],
     ];
