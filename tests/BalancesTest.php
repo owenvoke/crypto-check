@@ -60,4 +60,28 @@ class BalancesTest extends TestCase
         $this->expectException(Exceptions\WalletNotFoundException::class);
         Balances::fetch(Wallet::DASH, WalletTest::INVALID_ADDRESS);
     }
+
+    /**
+     * Test that the convertToSimpleString() method throws an exception on an invalid Dash address.
+     * @throws \Exception
+     */
+    public function testCanRetreiveSimpleStringForEthereum()
+    {
+        $result = Balances::convertToSimpleString(
+            2502490472000000000,
+            Wallet::ETHEREUM
+        );
+
+        $this->assertEquals('2.502490472 ETH', $result);
+    }
+
+    /**
+     * Test that the convertToSimpleString() method throws an exception on an invalid wallet type.
+     * @throws \Exception
+     */
+    public function testThrowExceptionOnInvalidWalletConversion()
+    {
+        $this->expectException(Exceptions\InvalidWalletTypeException::class);
+        Balances::convertToSimpleString(2502490472000000000, 'invalid');
+    }
 }
