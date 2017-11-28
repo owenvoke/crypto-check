@@ -10,7 +10,7 @@ class Wallet
     /**
      * Wallet config path
      */
-    const WALLET_CONFIG = __DIR__.'/../config/wallets.json';
+    const WALLET_CONFIG = __DIR__.'/../wallets.json';
 
     // Wallet types
     const ETHEREUM = 'ethereum';
