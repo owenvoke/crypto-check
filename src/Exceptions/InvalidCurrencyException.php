@@ -10,5 +10,5 @@ class InvalidCurrencyException extends \Exception
     /**
      * @var string
      */
-    protected $message = 'Invalid currency shortcode specified.';
+    protected $message = 'Invalid currency short code specified.';
 }
