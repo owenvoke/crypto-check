@@ -87,12 +87,12 @@ class BalancesTest extends TestCase
      */
     public function testCanRetreiveSimpleStringForEthereum()
     {
-        $result = Balances::convertToSimpleString(
+        $result = Balances::convertToDouble(
             2502490472000000000,
             Wallet::ETHEREUM
         );
 
-        $this->assertEquals('2.502490472 ETH', $result);
+        $this->assertEquals(2.502490472, $result);
     }
 
     /**
@@ -102,6 +102,6 @@ class BalancesTest extends TestCase
     public function testThrowExceptionOnInvalidWalletConversion()
     {
         $this->expectException(Exceptions\InvalidWalletTypeException::class);
-        Balances::convertToSimpleString(2502490472000000000, 'invalid');
+        Balances::convertToDouble(2502490472000000000, 'invalid');
     }
 }

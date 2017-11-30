@@ -79,7 +79,7 @@ class Balances
 
                 $addressClient = new AddressClient($apiContext);
                 $data = $addressClient->get($address);
-                $balances[$type][$address] = self::convertToSimpleString(
+                $balances[$type][$address] = self::convertToDouble(
                     $data->getBalance(),
                     $type
                 );
@@ -95,11 +95,10 @@ class Balances
      * @return string
      * @throws \Exception
      */
-    public static function convertToSimpleString($balanceToken, $type = 'ethereum')
+    public static function convertToDouble($balanceToken, $type = 'ethereum')
     {
         if (isset(Wallet::WALLET_AVAILABLE[$type])) {
-            return ($balanceToken / Wallet::WALLET_AVAILABLE[$type]['divider']).' '.
-                   Wallet::WALLET_AVAILABLE[$type]['symbol'];
+            return (double)($balanceToken / Wallet::WALLET_AVAILABLE[$type]['divider']);
         }
 
         throw new InvalidWalletTypeException();
