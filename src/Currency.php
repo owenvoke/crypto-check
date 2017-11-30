@@ -102,7 +102,7 @@ class Currency
         $currencies = [];
 
         foreach ($response as $currency) {
-            $currencies[$currency->symbol] = $currency->{'price_'.$shortCode};
+            $currencies[$currency->symbol] = (double)$currency->{'price_'.$shortCode};
         }
 
         if (!is_dir(Currency::CURRENCY_DIR)) {
