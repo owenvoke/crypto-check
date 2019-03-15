@@ -177,9 +177,9 @@ class WalletTest extends TestCase
     public function itCanListAllWalletAddresses(): void
     {
         $result = Wallet::list(Wallet::BITCOIN);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $result = Wallet::list();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 }

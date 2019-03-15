@@ -15,7 +15,7 @@ class BalancesTest extends TestCase
     {
         $balances = Balances::fetch();
 
-        $this->assertInternalType('array', $balances);
+        $this->assertIsArray($balances);
     }
 
     /**
