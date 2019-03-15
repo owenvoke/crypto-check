@@ -5,16 +5,13 @@ namespace pxgamer\CryptoCheck;
 use PHPUnit\Framework\TestCase;
 use pxgamer\CryptoCheck\Exceptions;
 
-/**
- * Class BalancesTest
- */
 class BalancesTest extends TestCase
 {
     /**
-     * Test that the balance can be fetched for wallets.
+     * @test
      * @throws \Exception
      */
-    public function testCanFetchBalances()
+    public function testCanFetchBalances(): void
     {
         $balances = Balances::fetch();
 
@@ -22,70 +19,70 @@ class BalancesTest extends TestCase
     }
 
     /**
-     * Test that the fetch() method throws an exception on an invalid coin type.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidCoinType()
+    public function itThrowsAnExceptionOnInvalidCoinType(): void
     {
         $this->expectException(Exceptions\InvalidWalletTypeException::class);
         Balances::fetch('Botchain');
     }
 
     /**
-     * Test that the fetch() method throws an exception on an invalid Bitcoin address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidBitcoinAddress()
+    public function itThrowsAnExceptionOnInvalidBitcoinAddress(): void
     {
         $this->expectException(Exceptions\WalletNotFoundException::class);
         Balances::fetch(Wallet::BITCOIN, WalletTest::INVALID_ADDRESS);
     }
 
     /**
-     * Test that the fetch() method throws an exception on an invalid Ethereum address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidEthereumAddress()
+    public function itThrowsAnExceptionOnInvalidEthereumAddress(): void
     {
         $this->expectException(Exceptions\WalletNotFoundException::class);
         Balances::fetch(Wallet::ETHEREUM, WalletTest::INVALID_ADDRESS);
     }
 
     /**
-     * Test that the fetch() method throws an exception on an invalid Dash address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidDashAddress()
+    public function itThrowsAnExceptionOnInvalidDashAddress(): void
     {
         $this->expectException(Exceptions\WalletNotFoundException::class);
         Balances::fetch(Wallet::DASH, WalletTest::INVALID_ADDRESS);
     }
 
     /**
-     * Test that the fetch() method throws an exception on an invalid Litecoin address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidLitecoinAddress()
+    public function itThrowsAnExceptionOnInvalidLitecoinAddress(): void
     {
         $this->expectException(Exceptions\WalletNotFoundException::class);
         Balances::fetch(Wallet::LITECOIN, WalletTest::INVALID_ADDRESS);
     }
 
     /**
-     * Test that the fetch() method throws an exception on an invalid Dogecoin address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidDogecoinAddress()
+    public function itThrowsAnExceptionOnInvalidDogecoinAddress(): void
     {
         $this->expectException(Exceptions\WalletNotFoundException::class);
         Balances::fetch(Wallet::DOGECOIN, WalletTest::INVALID_ADDRESS);
     }
 
     /**
-     * Test that the convertToSimpleString() method returns a correctly formatted string.
+     * @test
      * @throws \Exception
      */
-    public function testCanRetreiveSimpleStringForEthereum()
+    public function itCanRetreiveASimpleStringForEthereum(): void
     {
         $result = Balances::convertToSimpleString(
             2502490472000000000,
@@ -96,10 +93,10 @@ class BalancesTest extends TestCase
     }
 
     /**
-     * Test that the convertToSimpleString() method throws an exception on an invalid wallet type.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidWalletConversion()
+    public function itThrowsAnExceptionOnInvalidWalletConversion(): void
     {
         $this->expectException(Exceptions\InvalidWalletTypeException::class);
         Balances::convertToSimpleString(2502490472000000000, 'invalid');

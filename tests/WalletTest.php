@@ -14,80 +14,80 @@ class WalletTest extends TestCase
     const INVALID_ADDRESS = '3MZmTtzap1JLPKb2a7V5fffsuE6dFr21rqdxKoE';
 
     /**
-     * Test that the read() method creates a new wallets config file.
+     * @test
      * @throws \Exception
      */
-    public function testCreatesFileOnRead()
+    public function itCanCreateAFileOnRead(): void
     {
         Wallet::read();
         $this->assertFileExists(Wallet::WALLET_CONFIG);
     }
 
     /**
-     * Test that the validate() method throws an exception on an invalid coin type.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidCoinType()
+    public function itThrowsAnExceptionOnInvalidCoinType(): void
     {
         $this->expectException(Exceptions\InvalidWalletTypeException::class);
         Wallet::validate(self::VALID_BTC_ADDRESS, 'Botchain');
     }
 
     /**
-     * Test that the validate() method throws an exception on an invalid Bitcoin address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidBitcoinAddress()
+    public function itThrowsAnExceptionOnInvalidBitcoinAddress(): void
     {
         $this->expectException(Exceptions\InvalidAddressFormatException::class);
         Wallet::validate(self::INVALID_ADDRESS, Wallet::BITCOIN);
     }
 
     /**
-     * Test that the validate() method throws an exception on an invalid Ethereum address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidEthereumAddress()
+    public function itThrowsAnExceptionOnInvalidEthereumAddress(): void
     {
         $this->expectException(Exceptions\InvalidAddressFormatException::class);
         Wallet::validate(self::INVALID_ADDRESS, Wallet::ETHEREUM);
     }
 
     /**
-     * Test that the validate() method throws an exception on an invalid Dash address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidDashAddress()
+    public function itThrowsAnExceptionOnInvalidDashAddress(): void
     {
         $this->expectException(Exceptions\InvalidAddressFormatException::class);
         Wallet::validate(self::INVALID_ADDRESS, Wallet::DASH);
     }
 
     /**
-     * Test that the validate() method throws an exception on an invalid Litecoin address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidLitecoinAddress()
+    public function itThrowsAnExceptionOnInvalidLitecoinAddress(): void
     {
         $this->expectException(Exceptions\InvalidAddressFormatException::class);
         Wallet::validate(self::INVALID_ADDRESS, Wallet::LITECOIN);
     }
 
     /**
-     * Test that the validate() method throws an exception on an invalid Dogecoin address.
+     * @test
      * @throws \Exception
      */
-    public function testThrowExceptionOnInvalidDogecoinAddress()
+    public function itThrowsAnExceptionOnInvalidDogecoinAddress(): void
     {
         $this->expectException(Exceptions\InvalidAddressFormatException::class);
         Wallet::validate(self::INVALID_ADDRESS, Wallet::DOGECOIN);
     }
 
     /**
-     * Test that the validate() method returns true on a valid Bitcoin address.
+     * @test
      * @throws \Exception
      */
-    public function testReturnTrueOnValidBitcoinAddress()
+    public function itWillReturnTrueOnValidBitcoinAddress(): void
     {
         $result = Wallet::validate(self::VALID_BTC_ADDRESS, Wallet::BITCOIN);
 
@@ -95,10 +95,10 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the validate() method returns true on a valid Ethereum address.
+     * @test
      * @throws \Exception
      */
-    public function testReturnTrueOnValidEthereumAddress()
+    public function itWillReturnTrueOnValidEthereumAddress(): void
     {
         $result = Wallet::validate(self::VALID_ETH_ADDRESS, Wallet::ETHEREUM);
 
@@ -106,10 +106,10 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the validate() method returns true on a valid Dash address.
+     * @test
      * @throws \Exception
      */
-    public function testReturnTrueOnValidDashAddress()
+    public function itWillReturnTrueOnValidDashAddress(): void
     {
         $result = Wallet::validate(self::VALID_DASH_ADDRESS, Wallet::DASH);
 
@@ -117,10 +117,10 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the validate() method returns true on a valid Litecoin address.
+     * @test
      * @throws \Exception
      */
-    public function testReturnTrueOnValidLitecoinAddress()
+    public function itWillReturnTrueOnValidLitecoinAddress(): void
     {
         $result = Wallet::validate(self::VALID_LITECOIN_ADDRESS, Wallet::LITECOIN);
 
@@ -128,10 +128,10 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the validate() method returns true on a valid Dogecoin address.
+     * @test
      * @throws \Exception
      */
-    public function testReturnTrueOnValidDogecoinAddress()
+    public function itWillReturnTrueOnValidDogecoinAddress(): void
     {
         $result = Wallet::validate(self::VALID_DOGECOIN_ADDRESS, Wallet::DOGECOIN);
 
@@ -139,10 +139,10 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the add() method successfully adds a Bitcoin wallet address.
+     * @test
      * @throws \Exception
      */
-    public function testCanAddBitcoinAddress()
+    public function itCanAddABitcoinAddress(): void
     {
         $result = Wallet::add(self::VALID_BTC_ADDRESS, Wallet::BITCOIN);
 
@@ -150,10 +150,10 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the remove() method successfully removes a Bitcoin wallet address.
+     * @test
      * @throws \Exception
      */
-    public function testCanRemoveBitcoinAddress()
+    public function itCanRemoveABitcoinAddress(): void
     {
         $result = Wallet::remove(self::VALID_BTC_ADDRESS, Wallet::BITCOIN);
 
@@ -161,20 +161,20 @@ class WalletTest extends TestCase
     }
 
     /**
-     * Test that the remove() method throws an exception on an invalid Bitcoin wallet address.
+     * @test
      * @throws \Exception
      */
-    public function testCanRemoveNonExistentBitcoinAddress()
+    public function itCanRemoveANonExistentBitcoinAddress(): void
     {
         $this->expectException(Exceptions\WalletNotFoundException::class);
         Wallet::remove(self::INVALID_ADDRESS, Wallet::BITCOIN);
     }
 
     /**
-     * Test that the list() method returns an array.
+     * @test
      * @throws \Exception
      */
-    public function testCanListWalletAddresses()
+    public function itCanListAllWalletAddresses(): void
     {
         $result = Wallet::list(Wallet::BITCOIN);
         $this->assertInternalType('array', $result);
